@@ -1,0 +1,106 @@
+Using project: visionary-research
+Vertex AI initialized
+ERROR: 403 Caller does not have required permission to use project visionary-research. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=visionary-research and then retry. Propagation of the new permission may take a few minutes. [reason: "USER_PROJECT_DENIED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "containerInfo"
+  value: "visionary-research"
+}
+metadata {
+  key: "consumer"
+  value: "projects/visionary-research"
+}
+metadata {
+  key: "consoleUrl"
+  value: "https://console.developers.google.com/iam-admin/iam?project=visionary-research"
+}
+, locale: "en-US"
+message: "Caller does not have required permission to use project visionary-research. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=visionary-research and then retry. Propagation of the new permission may take a few minutes."
+, links {
+  description: "Google developer console IAM admin"
+  url: "https://console.developers.google.com/iam-admin/iam?project=visionary-research"
+}
+]
+Traceback (most recent call last):
+  File "C:\Users\kommi\ragpipeline\vertex_test.py", line 16, in <module>
+    model = TextEmbeddingModel.from_pretrained("text-embedding-005")
+  File "C:\Users\kommi\AppData\Local\Programs\Python\Python313\Lib\site-packages\vertexai\_model_garden\_model_garden_models.py", line 290, in from_pretrained
+    return _from_pretrained(interface_class=cls, model_name=model_name)
+  File "C:\Users\kommi\AppData\Local\Programs\Python\Python313\Lib\site-packages\vertexai\_model_garden\_model_garden_models.py", line 207, in _from_pretrained
+    model_info = _get_model_info(
+        model_id=model_name,
+        schema_to_class_map={interface_class._INSTANCE_SCHEMA_URI: interface_class},
+    )
+  File "C:\Users\kommi\AppData\Local\Programs\Python\Python313\Lib\site-packages\vertexai\_model_garden\_model_garden_models.py", line 123, in _get_model_info
+    _publisher_models._PublisherModel(  # pylint: disable=protected-access
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        resource_name=model_id
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )._gca_resource
+    ^
+  File "C:\Users\kommi\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\cloud\aiplatform\_publisher_models.py", line 77, in __init__
+    self._gca_resource = getattr(self.api_client, self._getter_method)(
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        name=full_resource_name, retry=base._DEFAULT_RETRY
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\kommi\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\cloud\aiplatform_v1\services\model_garden_service\client.py", line 927, in get_publisher_model
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\kommi\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\kommi\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\kommi\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+    ~~~~~~~~~~~~~~~~~~~^
+        exc,
+        ^^^^
+    ...<6 lines>...
+        timeout,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\kommi\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_base.py", line 212, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\kommi\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 144, in retry_target
+    result = target()
+  File "C:\Users\kommi\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.PermissionDenied: 403 Caller does not have required permission to use project visionary-research. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=visionary-research and then retry. Propagation of the new permission may take a few minutes. [reason: "USER_PROJECT_DENIED"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "aiplatform.googleapis.com"
+}
+metadata {
+  key: "containerInfo"
+  value: "visionary-research"
+}
+metadata {
+  key: "consumer"
+  value: "projects/visionary-research"
+}
+metadata {
+  key: "consoleUrl"
+  value: "https://console.developers.google.com/iam-admin/iam?project=visionary-research"
+}
+, locale: "en-US"
+message: "Caller does not have required permission to use project visionary-research. Grant the caller the roles/serviceusage.serviceUsageConsumer role, or a custom role with the serviceusage.services.use permission, by visiting https://console.developers.google.com/iam-admin/iam?project=visionary-research and then retry. Propagation of the new permission may take a few minutes."
+, links {
+  description: "Google developer console IAM admin"
+  url: "https://console.developers.google.com/iam-admin/iam?project=visionary-research"
+}
+]

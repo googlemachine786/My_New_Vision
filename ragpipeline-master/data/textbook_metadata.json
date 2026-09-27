@@ -1,0 +1,482 @@
+{
+  "extraction_date": "2026-03-27T14:58:48.455238",
+  "pdf_file": "science class 8.pdf",
+  "total_metadata_entries": 2729,
+  "taxonomy_entries": 36,
+  "metadata_samples": [
+    {
+      "chapter": "TEXTBOOK FOR CLASS VIIISCIENCE",
+      "section": "",
+      "subsection": "",
+      "page_number": 1,
+      "grade": 0,
+      "subject": "Science",
+      "topic": "",
+      "content_type": "heading",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "text",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "text",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "formula",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "text",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "text",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "text",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "text",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "formula",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "formula",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "formula",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "formula",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "formula",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "text",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "text",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "text",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "text",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "text",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "text",
+      "taxonomy_id": 0
+    },
+    {
+      "chapter": "",
+      "section": "",
+      "subsection": "",
+      "page_number": 2,
+      "grade": 0,
+      "subject": "",
+      "topic": "",
+      "content_type": "text",
+      "taxonomy_id": 0
+    }
+  ],
+  "taxonomy": {
+    "0_Science_TEXTBOOK FOR CLASS VIIISCIENCE": {
+      "taxonomy_id": 1,
+      "grade": 0,
+      "subject": "Science",
+      "chapter": "TEXTBOOK FOR CLASS VIIISCIENCE",
+      "section": ""
+    },
+    "0__": {
+      "taxonomy_id": 2,
+      "grade": 0,
+      "subject": "",
+      "chapter": "",
+      "section": ""
+    },
+    "0_Science_": {
+      "taxonomy_id": 3,
+      "grade": 0,
+      "subject": "Science",
+      "chapter": "",
+      "section": ""
+    },
+    "0__Textbook Development Committee": {
+      "taxonomy_id": 4,
+      "grade": 0,
+      "subject": "",
+      "chapter": "Textbook Development Committee",
+      "section": ""
+    },
+    "0__A Note for the Students": {
+      "taxonomy_id": 5,
+      "grade": 0,
+      "subject": "",
+      "chapter": "A Note for the Students",
+      "section": ""
+    },
+    "0__WE,THEPEOPLEOFINDIA,": {
+      "taxonomy_id": 6,
+      "grade": 0,
+      "subject": "",
+      "chapter": "WE,THEPEOPLEOFINDIA,",
+      "section": ""
+    },
+    "0__[SOVEREIGNSOCIALISTSECULARDEMOCRATIC REPUBLIC]": {
+      "taxonomy_id": 7,
+      "grade": 0,
+      "subject": "",
+      "chapter": "[SOVEREIGNSOCIALISTSECULARDEMOCRATIC REPUBLIC]",
+      "section": ""
+    },
+    "0__IN OUR CONSTITUENT ASSEMBLY": {
+      "taxonomy_id": 8,
+      "grade": 0,
+      "subject": "",
+      "chapter": "IN OUR CONSTITUENT ASSEMBLY",
+      "section": ""
+    },
+    "0__HEREBY ADOPT, ENACT AND GIVE TOOURSELVES THIS CONSTITUTION.": {
+      "taxonomy_id": 9,
+      "grade": 0,
+      "subject": "",
+      "chapter": "HEREBY ADOPT, ENACT AND GIVE TOOURSELVES THIS CONSTITUTION.",
+      "section": ""
+    },
+    "0__havingsolemnly resolved to constitute India into a": {
+      "taxonomy_id": 10,
+      "grade": 0,
+      "subject": "",
+      "chapter": "havingsolemnly resolved to constitute India into a",
+      "section": ""
+    },
+    "0__and to secureto all its citizens :": {
+      "taxonomy_id": 11,
+      "grade": 0,
+      "subject": "",
+      "chapter": "and to secureto all its citizens :",
+      "section": ""
+    },
+    "0__social,economicandpolitical;": {
+      "taxonomy_id": 12,
+      "grade": 0,
+      "subject": "",
+      "chapter": "social,economicandpolitical;",
+      "section": ""
+    },
+    "0__of thought, expression, belief,faith and worship;": {
+      "taxonomy_id": 13,
+      "grade": 0,
+      "subject": "",
+      "chapter": "of thought, expression, belief,faith and worship;",
+      "section": ""
+    },
+    "0__of status and of opportunity;and to promote among them all": {
+      "taxonomy_id": 14,
+      "grade": 0,
+      "subject": "",
+      "chapter": "of status and of opportunity;and to promote among them all",
+      "section": ""
+    },
+    "0__assuring the dignity oftheindividualandthe[unityandintegrity of the Nation];": {
+      "taxonomy_id": 15,
+      "grade": 0,
+      "subject": "",
+      "chapter": "assuring the dignity oftheindividualandthe[unityandintegrity of the Nation];",
+      "section": ""
+    },
+    "0__this twenty-sixth day of November, 1949 do": {
+      "taxonomy_id": 16,
+      "grade": 0,
+      "subject": "",
+      "chapter": "this twenty-sixth day of November, 1949 do",
+      "section": ""
+    },
+    "0__THE CONSTITUTION OFINDIA": {
+      "taxonomy_id": 17,
+      "grade": 0,
+      "subject": "",
+      "chapter": "THE CONSTITUTION OFINDIA",
+      "section": ""
+    },
+    "0__The Role of Begums of Bhopal in Girls\u2019 Education": {
+      "taxonomy_id": 18,
+      "grade": 0,
+      "subject": "",
+      "chapter": "The Role of Begums of Bhopal in Girls\u2019 Education",
+      "section": ""
+    },
+    "0__` 40.00 / pp. 83 / 2006ISBN: 81-7450-598-9": {
+      "taxonomy_id": 19,
+      "grade": 0,
+      "subject": "",
+      "chapter": "` 40.00 / pp. 83 / 2006ISBN: 81-7450-598-9",
+      "section": ""
+    },
+    "0__CROP PRODUCTION AND MANAGEMENTCROP PRODUCTION AND MANAGEMENT": {
+      "taxonomy_id": 20,
+      "grade": 0,
+      "subject": "",
+      "chapter": "CROP PRODUCTION AND MANAGEMENTCROP PRODUCTION AND MANAGEMENT",
+      "section": ""
+    },
+    "0__MICROORGANISMS : FRIEND AND FOEMICROORGANISMS : FRIEND AND FOE": {
+      "taxonomy_id": 21,
+      "grade": 0,
+      "subject": "",
+      "chapter": "MICROORGANISMS : FRIEND AND FOEMICROORGANISMS : FRIEND AND FOE",
+      "section": ""
+    },
+    "0__SYNTHETIC FIBRES AND PLASTICSSYNTHETIC FIBRES AND PLASTICS": {
+      "taxonomy_id": 22,
+      "grade": 0,
+      "subject": "",
+      "chapter": "SYNTHETIC FIBRES AND PLASTICSSYNTHETIC FIBRES AND PLASTICS",
+      "section": ""
+    },
+    "0__MATERIALS : METALS AND NON-METALSMATERIALS : METALS AND NON-METALS": {
+      "taxonomy_id": 23,
+      "grade": 0,
+      "subject": "",
+      "chapter": "MATERIALS : METALS AND NON-METALSMATERIALS : METALS AND NON-METALS",
+      "section": ""
+    },
+    "0__COAL AND PETROLEUMCOAL AND PETROLEUM": {
+      "taxonomy_id": 24,
+      "grade": 0,
+      "subject": "",
+      "chapter": "COAL AND PETROLEUMCOAL AND PETROLEUM",
+      "section": ""
+    },
+    "0__COMBUSTION AND FLAMECOMBUSTION AND FLAME": {
+      "taxonomy_id": 25,
+      "grade": 0,
+      "subject": "",
+      "chapter": "COMBUSTION AND FLAMECOMBUSTION AND FLAME",
+      "section": ""
+    },
+    "0__Light a candle (Caution : Be careful).Hold a 4-5 cm long thin glass tubewith a pair of tongs and introduceits one end in the dark zone of anon-flickering candle flame (Fig.6.10). Bring a lighted matchsticknear the other end of the glass tube.Do you see a flame caught at thisend of the glass tube after a while?If so, what is it that produces aflame? Notice that the wax near theheated wick melts quickly.": {
+      "taxonomy_id": 26,
+      "grade": 0,
+      "subject": "",
+      "chapter": "Light a candle (Caution : Be careful).Hold a 4-5 cm long thin glass tubewith a pair of tongs and introduceits one end in the dark zone of anon-flickering candle flame (Fig.6.10). Bring a lighted matchsticknear the other end of the glass tube.Do you see a flame caught at thisend of the glass tube after a while?If so, what is it that produces aflame? Notice that the wax near theheated wick melts quickly.",
+      "section": ""
+    },
+    "0__CONSERVATION OF PLANTS AND ANIMALSCONSERVATION OF PLANTS AND ANIMALS": {
+      "taxonomy_id": 27,
+      "grade": 0,
+      "subject": "",
+      "chapter": "CONSERVATION OF PLANTS AND ANIMALSCONSERVATION OF PLANTS AND ANIMALS",
+      "section": ""
+    },
+    "0__CELL \u2014 STRUCTURE AND FUNCTIONSCELL \u2014 STRUCTURE AND FUNCTIONS": {
+      "taxonomy_id": 28,
+      "grade": 0,
+      "subject": "",
+      "chapter": "CELL \u2014 STRUCTURE AND FUNCTIONSCELL \u2014 STRUCTURE AND FUNCTIONS",
+      "section": ""
+    },
+    "0__REPRODUCTION IN ANIMALSREPRODUCTION IN ANIMALS": {
+      "taxonomy_id": 29,
+      "grade": 0,
+      "subject": "",
+      "chapter": "REPRODUCTION IN ANIMALSREPRODUCTION IN ANIMALS",
+      "section": ""
+    },
+    "0__REACHING THE AGE OF ADOLESCENCEREACHING THE AGE OF ADOLESCENCE": {
+      "taxonomy_id": 30,
+      "grade": 0,
+      "subject": "",
+      "chapter": "REACHING THE AGE OF ADOLESCENCEREACHING THE AGE OF ADOLESCENCE",
+      "section": ""
+    },
+    "0__FORCE AND PRESSUREFORCE AND PRESSURE": {
+      "taxonomy_id": 31,
+      "grade": 0,
+      "subject": "",
+      "chapter": "FORCE AND PRESSUREFORCE AND PRESSURE",
+      "section": ""
+    },
+    "0__CHEMICAL EFFECTS OF ELECTRICCURRENTCHEMICAL EFFECTS OF ELECTRICCURRENT": {
+      "taxonomy_id": 32,
+      "grade": 0,
+      "subject": "",
+      "chapter": "CHEMICAL EFFECTS OF ELECTRICCURRENTCHEMICAL EFFECTS OF ELECTRICCURRENT",
+      "section": ""
+    },
+    "0__SOME NATURAL PHENOMENASOME NATURAL PHENOMENA": {
+      "taxonomy_id": 33,
+      "grade": 0,
+      "subject": "",
+      "chapter": "SOME NATURAL PHENOMENASOME NATURAL PHENOMENA",
+      "section": ""
+    },
+    "0_Mathematics_": {
+      "taxonomy_id": 34,
+      "grade": 0,
+      "subject": "Mathematics",
+      "chapter": "",
+      "section": ""
+    },
+    "0__STARS AND THE SOLAR SYSTEMSTARS AND THE SOLAR SYSTEM": {
+      "taxonomy_id": 35,
+      "grade": 0,
+      "subject": "",
+      "chapter": "STARS AND THE SOLAR SYSTEMSTARS AND THE SOLAR SYSTEM",
+      "section": ""
+    },
+    "0__POLLUTION OF AIR AND WATERPOLLUTION OF AIR AND WATER": {
+      "taxonomy_id": 36,
+      "grade": 0,
+      "subject": "",
+      "chapter": "POLLUTION OF AIR AND WATERPOLLUTION OF AIR AND WATER",
+      "section": ""
+    }
+  }
+}

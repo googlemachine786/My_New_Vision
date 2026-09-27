@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "test_date": "2026-03-27T11:00:57.771348",
+    "ollama_url": "http://localhost:11434",
+    "embed_model": "nomic-embed-text",
+    "llm_model": "llama3.2:3b"
+  },
+  "ingestion": {
+    "status": "success",
+    "pages_processed": 10,
+    "chunks_embedded": 50,
+    "embedding_model": "nomic-embed-text",
+    "embedding_dimensions": 768,
+    "time_seconds": 112.22
+  },
+  "queries": [
+    {
+      "query": "What is photosynthesis?",
+      "answer": "Unfortunately, the provided context doesn't explicitly define photosynthesis. However, I can make an educated guess based on the information related to chloroplasts (Page 10) and chloroplasts are mentioned as organelles present in plant cells. It's likely that chloroplasts are involved in photosynthesis.\n\nAccording to scientific knowledge, photosynthesis is the process by which green plants, algae, and some bacteria convert light energy from the sun into chemical energy in the form of glucose.",
+      "sources": [
+        "Page 111",
+        "Page 21",
+        "Page 111"
+      ],
+      "latency_ms": 12205.56,
+      "status": "success",
+      "num_context_chunks": 3
+    },
+    {
+      "query": "What are the parts of a cell?",
+      "answer": "In the provided context, the question is asking about the parts of a cell.\n\nAccording to the context, the parts of a cell include:\n\n1. Cytoplasm (Page 112, question 3(a))\n2. Nucleus (Page 112, question 3(b))\n3. Organelles (Page 112, question 4)\n\nNote that chloroplasts, mitochondria, and other organelles are not explicitly listed as parts of a cell in the provided context. However, it is mentioned that organelles are present in the cell.",
+      "sources": [
+        "Page 111",
+        "Page 111",
+        "Page 111"
+      ],
+      "latency_ms": 13247.45,
+      "status": "success",
+      "num_context_chunks": 3
+    },
+    {
+      "query": "What is force?",
+      "answer": "According to the context, force is defined as \"a push or a pull on an object\".",
+      "sources": [
+        "Page 141",
+        "Page 141",
+        "Page 141"
+      ],
+      "latency_ms": 12280.54,
+      "status": "success",
+      "num_context_chunks": 3
+    }
+  ],
+  "evaluation": {},
+  "metrics": {
+    "average_latency_ms": 12577.85,
+    "p95_latency_ms": 13247.45,
+    "p99_latency_ms": 13247.45,
+    "success_rate": 1.0,
+    "total_queries": 3,
+    "successful_queries": 3
+  },
+  "summary": {
+    "status": "COMPLETE",
+    "pass_fail": "PASS",
+    "total_tests": 4,
+    "passed_tests": 4,
+    "failed_tests": 0
+  }
+}

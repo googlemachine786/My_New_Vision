@@ -1,0 +1,44 @@
+{
+  "test_date": "2026-03-27T15:11:18.893283",
+  "model": "llama3.2:3b",
+  "test_cases": 3,
+  "results": [
+    {
+      "query": "What is photosynthesis?",
+      "answer": "Photosynthesis is the process by which green plants and some other organisms use sunlight to synthesize foods with the help of chlorophyll. Photosynthesis converts carbon dioxide and water into glucos",
+      "context_length": 317,
+      "hallucination_detected": false,
+      "completeness_score": 0.9,
+      "clarity_score": 0.9,
+      "judge_score": 0.9,
+      "judge_feedback": "THE ANSWER IS VERY CLOSE TO THE PROVIDED CONTEXT, BUT IT LACKS THE MENTION OF CHLOROPLASTS, WHICH IS AN ESSENTIAL DETAIL FOR A COMPLETE UNDERSTANDING OF PHOTOSYNTHESIS."
+    },
+    {
+      "query": "What is force in physics?",
+      "answer": "In physics, a force is any interaction that, when unopposed, will change the motion of an object. Force can be described as a push or pull. It is a vector quantity with both magnitude and direction. T",
+      "context_length": 318,
+      "hallucination_detected": false,
+      "completeness_score": 1.0,
+      "clarity_score": 1.0,
+      "judge_score": 1.0,
+      "judge_feedback": "THE ANSWER ACCURATELY DESCRIBES THE CONCEPT OF FORCE IN PHYSICS, FULLY ADDRESSING THE QUERY AND PROVIDING CLEAR INFORMATION."
+    },
+    {
+      "query": "What are microorganisms?",
+      "answer": "Microorganisms are microscopic living organisms that are too small to be seen with the naked eye. They include bacteria, viruses, fungi, protozoa, and algae. Microorganisms can be found everywhere - i",
+      "context_length": 381,
+      "hallucination_detected": true,
+      "completeness_score": 0.8,
+      "clarity_score": 0.9,
+      "judge_score": 0.85,
+      "judge_feedback": "THE ANSWER INCLUDES ADDITIONAL INFORMATION ABOUT THE DISTRIBUTION OF MICROORGANISMS, BUT DOES NOT SPECIFICALLY ADDRESS THE NATURE OF VIRUSES AS NON-CELLULAR INFECTIOUS AGENTS."
+    }
+  ],
+  "aggregate": {
+    "avg_completeness": 0.9,
+    "avg_clarity": 0.933,
+    "avg_judge_score": 0.917,
+    "hallucination_rate": 0.333
+  },
+  "note": "REAL RESULTS - No mocks, actual Ollama API calls"
+}

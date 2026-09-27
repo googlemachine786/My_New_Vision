@@ -1,0 +1,49 @@
+{
+  "evaluation_date": "2026-03-27T14:56:48.337544",
+  "test_cases": 2,
+  "ragas_metrics": [
+    {
+      "faithfulness": 0.5,
+      "answer_relevance": 0.5,
+      "context_recall": 0.5,
+      "context_precision": 0.5,
+      "answer_correctness": 0.5,
+      "overall_ragas_score": 0.5
+    },
+    {
+      "faithfulness": 0.0,
+      "answer_relevance": 0.5,
+      "context_recall": 0.5,
+      "context_precision": 0.5,
+      "answer_correctness": 0.5,
+      "overall_ragas_score": 0.375
+    }
+  ],
+  "llm_judge_metrics": [
+    {
+      "query": "",
+      "answer": "",
+      "context": "Sample context",
+      "judge_score": 0.0,
+      "judge_feedback": "",
+      "hallucination_detected": false,
+      "completeness_score": 0.0,
+      "clarity_score": 0.0
+    },
+    {
+      "query": "",
+      "answer": "",
+      "context": "Sample context",
+      "judge_score": 0.0,
+      "judge_feedback": "",
+      "hallucination_detected": false,
+      "completeness_score": 0.0,
+      "clarity_score": 0.0
+    }
+  ],
+  "aggregate": {
+    "avg_ragas_score": 0.4375,
+    "avg_judge_score": 0.0,
+    "hallucination_rate": 0.0
+  }
+}

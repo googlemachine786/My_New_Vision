@@ -1,0 +1,28 @@
+# Fully-offline single-container RAG stack (no cloud credentials required).
+# Same API contract as the full microservices stack on port 8080.
+#
+#   docker compose -f docker-compose-offline.yml up --build
+#
+# For the full stack (Go microservices + Redis + Postgres + Vertex AI) use
+# docker-compose.yml (production) or docker-compose-local.yml (local infra).
+version: '3.8'
+
+services:
+  local-rag:
+    build:
+      context: .
+      dockerfile: services/local-rag-service/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - APP_MODE=local
+      - RETRIEVAL_STRATEGY=hybrid
+      - RERANK_ENABLED=true
+      - LLM_PROVIDER=${LLM_PROVIDER:-extractive}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    volumes:
+      - local_rag_data:/app/data
+
+volumes:
+  local_rag_data:

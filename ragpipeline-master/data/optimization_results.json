@@ -1,0 +1,43 @@
+{
+  "optimization_date": "2026-03-27T12:00:17.173986",
+  "before": {},
+  "after": {},
+  "improvements": {},
+  "optimizations": {
+    "embedding": {
+      "before_ms": 6702,
+      "after_ms": 2250.25,
+      "improvement_x": 2.98,
+      "chunks_embedded": 20,
+      "cache_hit_rate": 1.0
+    },
+    "generation": {
+      "before_ms": 14500,
+      "after_ms": 4706.9,
+      "improvement_x": 3.08,
+      "model": "llama3.2:3b",
+      "samples": 3
+    },
+    "retrieval": {
+      "before_recall": 0.68,
+      "after_recall": 0.82,
+      "improvement": 0.14,
+      "top_k": 5,
+      "similarity": "cosine"
+    },
+    "chunking": {
+      "before_density": 0.0,
+      "after_density": 0.35,
+      "improvement": 0.35,
+      "chunk_size": 400,
+      "sampling": "science-specific"
+    }
+  },
+  "overall": {
+    "before": 0.398,
+    "after": 0.708,
+    "improvement": 0.31,
+    "target": 0.75,
+    "target_met": false
+  }
+}

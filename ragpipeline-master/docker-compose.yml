@@ -1,0 +1,188 @@
+version: '3.8'
+
+services:
+  # Redis for caching and sessions
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - rag-network
+
+  # API Gateway (Port 8080)
+  api-gateway:
+    build:
+      context: .
+      dockerfile: services/api-gateway/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - REDIS_URL=redis://redis:6379/0
+      - EMBEDDING_SERVICE_URL=http://embedding-service:8081
+      - VECTOR_SEARCH_SERVICE_URL=http://vector-search-service:8082
+      - QUERY_UNDERSTANDING_SERVICE_URL=http://query-understanding-service:8083
+      - RERANKER_SERVICE_URL=http://reranker-service:8085
+      - JWT_SECRET=${JWT_SECRET:-your-secret-key}
+      - CAG_ENABLED=true
+      - SEMANTIC_CACHE_ENABLED=true
+      - EMBEDDING_CACHE_ENABLED=true
+      - SEARCH_CACHE_ENABLED=true
+      - TEMPLATE_CACHE_ENABLED=true
+    depends_on:
+      redis:
+        condition: service_healthy
+      embedding-service:
+        condition: service_healthy
+      vector-search-service:
+        condition: service_healthy
+      query-understanding-service:
+        condition: service_healthy
+      reranker-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - rag-network
+
+  # Embedding Service (Port 8081)
+  embedding-service:
+    build:
+      context: .
+      dockerfile: services/embedding-service/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - PORT=8081
+      - VERTEX_PROJECT=${VERTEX_PROJECT}
+      - VERTEX_LOCATION=${VERTEX_LOCATION:-us-central1}
+      - VERTEX_MODEL=${VERTEX_MODEL:-text-embedding-005}
+      - GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/gcp_credentials
+      - REDIS_URL=redis://redis:6379/1
+      - EMBEDDING_CACHE_ENABLED=true
+    secrets:
+      - gcp_credentials
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - rag-network
+
+  # Vector Search Service (Port 8082)
+  vector-search-service:
+    build:
+      context: .
+      dockerfile: services/vector-search-service/Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - PORT=8082
+      - DB_HOST=${DB_HOST:-postgres}
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - DB_NAME=${DB_NAME:-ragdb}
+      - REDIS_URL=redis://redis:6379/2
+      - SEARCH_CACHE_ENABLED=true
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - rag-network
+
+  # Query Understanding Service (Port 8083)
+  query-understanding-service:
+    build:
+      context: .
+      dockerfile: services/query-understanding-service/Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      - PORT=8083
+      - GEMINI_PROJECT_ID=${VERTEX_PROJECT}
+      - GEMINI_LOCATION=${VERTEX_LOCATION:-us-central1}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.0-flash}
+      - GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/gcp_credentials
+      - GEMINI_MAX_RETRIES=3
+      - GEMINI_RATE_LIMIT=10
+      - GEMINI_RATE_BURST=20
+    secrets:
+      - gcp_credentials
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - rag-network
+
+  # Reranker Service (Port 8085)
+  reranker-service:
+    build:
+      context: ./services/reranker-service
+    ports:
+      - "8085:8085"
+    environment:
+      - PORT=8085
+      - RERANKER_MODEL=ms-marco-MiniLM-L6-v2
+      - GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/gcp_credentials
+    secrets:
+      - gcp_credentials
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8085/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - rag-network
+
+  # PostgreSQL with pgvector
+  postgres:
+    image: pgvector/pgvector:pg15
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+      - POSTGRES_DB=${DB_NAME:-ragdb}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./schema:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - rag-network
+
+volumes:
+  redis_data:
+  postgres_data:
+
+secrets:
+  gcp_credentials:
+    file: ${GOOGLE_APPLICATION_CREDENTIALS_FILE:-./gcp-credentials.json}
+
+networks:
+  rag-network:
+    driver: bridge

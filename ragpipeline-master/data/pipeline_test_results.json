@@ -1,0 +1,55 @@
+{
+  "test_date": "2026-04-08T09:51:00.239597",
+  "tests": [
+    {
+      "test": "redis_connectivity",
+      "status": "PASS",
+      "details": "v7.4.8, SET/GET OK",
+      "timestamp": "2026-04-08T09:51:00.431812"
+    },
+    {
+      "test": "postgres_connectivity",
+      "status": "PASS",
+      "details": "Tables: 6/6, Extensions: vector, btree_gin, pgcrypto, Taxonomy: 52 entries, Vector type: yes",
+      "timestamp": "2026-04-08T09:51:00.812059"
+    },
+    {
+      "test": "gemini_llm_api",
+      "status": "WARN",
+      "details": "Response: Photosynthesis...",
+      "timestamp": "2026-04-08T09:51:03.398841"
+    },
+    {
+      "test": "embedding_api",
+      "status": "PASS",
+      "details": "Dimension: 3072, Non-zero: 3072",
+      "timestamp": "2026-04-08T09:51:05.175145"
+    },
+    {
+      "test": "vector_storage",
+      "status": "PASS",
+      "details": "Found 1 results, test content: yes",
+      "timestamp": "2026-04-08T09:51:05.349615"
+    },
+    {
+      "test": "e2e_rag_query",
+      "status": "PASS",
+      "details": "Chunks retrieved: 0, Answer generated: yes\n     Answer: Since no context was provided, I...",
+      "timestamp": "2026-04-08T09:51:11.743868"
+    },
+    {
+      "test": "redis_caching",
+      "status": "PASS",
+      "details": "Cache SET/GET: OK",
+      "timestamp": "2026-04-08T09:51:11.761131"
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "passed": 6,
+    "failed": 0,
+    "warnings": 1,
+    "elapsed_seconds": 11.52,
+    "pass_rate": "85.7%"
+  }
+}

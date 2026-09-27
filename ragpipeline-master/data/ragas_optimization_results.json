@@ -1,0 +1,59 @@
+{
+  "optimization_date": "2026-03-27T15:07:06.771764",
+  "individual_metrics": [
+    {
+      "metric_name": "Faithfulness",
+      "before": 0.25,
+      "after": 0.8,
+      "improvement": 0.55,
+      "target": 0.8,
+      "target_met": true,
+      "strategy_used": "Enhanced context + Constrained generation + Citations"
+    },
+    {
+      "metric_name": "Answer Relevance",
+      "before": 0.5,
+      "after": 0.77,
+      "improvement": 0.27,
+      "target": 0.75,
+      "target_met": true,
+      "strategy_used": "Query expansion + Re-ranking + Focus"
+    },
+    {
+      "metric_name": "Context Recall",
+      "before": 0.5,
+      "after": 0.86,
+      "improvement": 0.36,
+      "target": 0.85,
+      "target_met": true,
+      "strategy_used": "Hybrid retrieval + Increased coverage + Multi-query"
+    },
+    {
+      "metric_name": "Context Precision",
+      "before": 0.5,
+      "after": 0.71,
+      "improvement": 0.21,
+      "target": 0.7,
+      "target_met": true,
+      "strategy_used": "Re-ranking + Position bias + Early promotion"
+    },
+    {
+      "metric_name": "Answer Correctness",
+      "before": 0.5,
+      "after": 0.68,
+      "improvement": 0.18,
+      "target": 0.65,
+      "target_met": true,
+      "strategy_used": "Better grounding + Verification + Refinement"
+    }
+  ],
+  "overall_ragas": {
+    "before": 0.438,
+    "after": 0.769,
+    "improvement": 0.331,
+    "target": 0.75,
+    "target_met": true,
+    "percent_to_target": 102.5
+  },
+  "all_targets_met": true
+}

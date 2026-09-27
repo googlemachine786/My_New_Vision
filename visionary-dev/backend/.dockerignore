@@ -1,0 +1,29 @@
+# Ignore everything we don't need in the Docker build context.
+# Keeps builds fast and prevents secrets from being baked into images.
+
+node_modules
+dist
+.env
+.env.*
+!.env.example
+
+# git / vcs
+.git
+.gitignore
+
+# editor / OS
+.vscode
+.idea
+.DS_Store
+
+# logs
+*.log
+npm-debug.log*
+
+# test / coverage
+coverage
+.nyc_output
+
+# misc
+README.md
+*.md

@@ -1,0 +1,221 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  GO_VERSION: '1.21'
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  # Lint and format check
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache: false
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: latest
+          working-directory: services
+
+      - name: Check formatting
+        run: |
+          unformatted=$(gofmt -l services/)
+          if [ -n "$unformatted" ]; then
+            echo "Unformatted files found:"
+            echo "$unformatted"
+            exit 1
+          fi
+
+  # Build all services
+  build:
+    name: Build Services
+    runs-on: ubuntu-latest
+    needs: lint
+    strategy:
+      matrix:
+        service:
+          - api-gateway
+          - embedding-service
+          - vector-search-service
+          - query-understanding-service
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Build ${{ matrix.service }}
+        run: |
+          cd services/${{ matrix.service }}
+          go build -v ./cmd/server/main.go
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.service }}
+          path: services/${{ matrix.service }}/main
+
+  # Run tests
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    needs: build
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      postgres:
+        image: pgvector/pgvector:pg15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ragdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    strategy:
+      matrix:
+        service:
+          - api-gateway
+          - embedding-service
+          - vector-search-service
+          - query-understanding-service
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Run migrations
+        run: |
+          PGPASSWORD=postgres psql -h localhost -U postgres -d ragdb -f schema/001_initial_schema.sql
+
+      - name: Run tests
+        run: |
+          cd services/${{ matrix.service }}
+          go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: services/${{ matrix.service }}/coverage.out
+          flags: ${{ matrix.service }}
+          name: ${{ matrix.service }}-coverage
+
+  # Build Docker images
+  docker-build:
+    name: Build Docker Images
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    strategy:
+      matrix:
+        service:
+          - api-gateway
+          - embedding-service
+          - vector-search-service
+          - query-understanding-service
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: services/${{ matrix.service }}/Dockerfile
+          push: false
+          tags: ragpipeline/${{ matrix.service }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # Deploy to production
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [test, docker-build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment: production
+    strategy:
+      matrix:
+        service:
+          - api-gateway
+          - embedding-service
+          - vector-search-service
+          - query-understanding-service
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy ${{ matrix.service }} to Cloud Run
+        run: |
+          echo "Deploying ${{ matrix.service }}..."
+          # gcloud run deploy ${{ matrix.service }} \
+          #   --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ matrix.service }}:${{ github.sha }} \
+          #   --platform managed \
+          #   --region us-central1 \
+          #   --allow-unauthenticated
+        env:
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Verify deployment
+        run: |
+          # curl -f https://${{ matrix.service }}-${{ secrets.GCP_PROJECT_ID }}.a.run.app/health
+          echo "Deployment verification would happen here"

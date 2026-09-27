@@ -1,0 +1,114 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# Test binary, built with `go test -c`
+*.test
+
+# Coverage files
+*.out
+*.prof
+*.cover
+coverage.html
+coverage.txt
+
+# Go build artifacts
+bin/
+dist/
+build/
+
+# Vendor directory (if not using modules)
+vendor/
+
+# Go workspace
+go.work
+go.work.sum
+
+# Environment files
+.env
+.env.local
+.env.*.local
+!.env.local.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+venv/
+env/
+.env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data files (large binaries)
+data/*.pdf
+data/*.xlsx
+data/*.csv
+data/*.docx
+*.ipynb
+
+# Docker
+.docker/
+
+# Kubernetes secrets
+*-secret.yaml
+
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Build output
+/services/*/bin/
+/services/*/dist/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Logs
+*.log
+logs/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Certificates (sensitive)
+*.pem
+*.key
+*.crt
+certs/
+"/.qwen/"  
+"/.planning/"  
+"temp-sa-key.json"  
+"gcp-sa-key.json"  
+"gcp-service-account.json"  
+"ragpipeline-service-account.json"  
+".qwen/"  
+".planning/"  
+"test_input.json"  
+"vertex_test_output.txt"  

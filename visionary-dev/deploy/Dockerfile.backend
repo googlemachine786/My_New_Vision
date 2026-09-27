@@ -1,0 +1,62 @@
+# syntax=docker/dockerfile:1.6
+#
+# Multi-stage backend image for Visionary.
+#
+# Targets:
+#   runtime  — lean prod image; runs `node dist/main` as non-root.
+#   migrate  — same source, includes dev deps so it can run
+#              `npx prisma migrate deploy` and `npx ts-node prisma/seed.ts`
+#              from the migrate init container.
+#
+# Build context: backend/
+# Build commands (typically driven by compose):
+#   docker build --target runtime -t visionary-backend:runtime backend/
+#   docker build --target migrate -t visionary-backend:migrate backend/
+
+# --- base ---------------------------------------------------------------
+FROM node:20-slim AS base
+WORKDIR /app
+# Prisma needs openssl + ca-certificates at runtime for TLS to Postgres.
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends openssl ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+# --- deps (all, incl. dev) ----------------------------------------------
+FROM base AS deps
+COPY package.json package-lock.json ./
+COPY prisma ./prisma
+RUN npm ci
+
+# --- build (compile TS, generate Prisma client) -------------------------
+FROM base AS build
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN npx prisma generate
+RUN npm run build
+
+# --- prod-deps (no dev deps; for runtime image) -------------------------
+FROM base AS prod-deps
+COPY package.json package-lock.json ./
+COPY prisma ./prisma
+RUN npm ci --omit=dev
+RUN npx prisma generate
+
+# --- migrate (init container; has dev deps + ts-node + prisma CLI) ------
+FROM build AS migrate
+RUN chmod +x /app/scripts/*.sh 2>/dev/null || true
+CMD ["/bin/sh", "-c", "/app/scripts/migrate-and-seed.sh"]
+
+# --- runtime (final lean image; non-root) -------------------------------
+FROM base AS runtime
+ENV NODE_ENV=production
+RUN groupadd --system --gid 1001 app \
+ && useradd --system --uid 1001 --gid app app
+COPY --from=prod-deps --chown=app:app /app/node_modules ./node_modules
+COPY --from=build --chown=app:app /app/dist ./dist
+COPY --from=build --chown=app:app /app/prisma ./prisma
+COPY --from=build --chown=app:app /app/package.json ./
+USER app
+EXPOSE 3001
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3001/api/health/live', r => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"
+CMD ["node", "dist/main"]

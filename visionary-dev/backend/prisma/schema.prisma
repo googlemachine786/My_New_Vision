@@ -1,0 +1,330 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─── Users ────────────────────────────────────────────────────────────────────
+
+model User {
+  id                   String    @id @default(cuid())
+  email                String    @unique
+  name                 String
+  avatar               String?
+  passwordHash         String?
+  googleId             String?   @unique
+  plan                 Plan      @default(FREE)
+  promptsToday         Int       @default(0)
+  lastResetAt          DateTime  @default(now())
+  // Email verification
+  isVerified           Boolean   @default(false)
+  otp                  String?   // bcrypt hash of OTP
+  otpExpiry            DateTime?
+  otpAttempts          Int       @default(0)
+  otpLockedUntil       DateTime?
+  // Onboarding fields
+  onboardingCompleted  Boolean   @default(false)
+  isStarted            Boolean   @default(false)
+  category             String?   // student | teacher | organization
+  fullName             String?
+  grade                String?   // stores grade_master.id
+  board                String?   // stores board_master.id
+  subject              String?   // for teachers
+  organizationName     String?   // for organizations
+  organizationType     String?   // for organizations
+  schoolName           String?
+  phone                String?
+  isDeleted            Boolean   @default(false)
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  conversations    Conversation[]
+  documents        Document[]
+  jobs             Job[]
+  subjectTracks    SubjectTrack[]
+  chapterTracks    ChapterTrack[]
+  deletionRequests DeletionRequest[]
+
+  @@map("users")
+}
+
+model DeletionRequest {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reason    String?
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("deletion_request")
+}
+
+// ─── Board Master Data ─────────────────────────────────────────────────────────
+
+model BoardMaster {
+  id        String          @id @default(cuid())
+  name      String          @unique
+  isActive  Boolean         @default(true)
+  sortOrder Int             @default(0)
+  createdAt DateTime        @default(now())
+
+  subjects  SubjectMaster[]
+
+  @@map("board_master")
+}
+
+// ─── Grade Master Data ─────────────────────────────────────────────────────────
+
+model GradeMaster {
+  id        String          @id @default(cuid())
+  name      String          @unique  // "1st", "2nd", ..., "12th"
+  sortOrder Int
+  isActive  Boolean         @default(true)
+  createdAt DateTime        @default(now())
+
+  subjects  SubjectMaster[]
+
+  @@map("grade_master")
+}
+
+// ─── Subject Master Data ───────────────────────────────────────────────────────
+
+model SubjectMaster {
+  id        String       @id @default(cuid())
+  name      String
+  gradeId   String
+  grade     GradeMaster  @relation(fields: [gradeId], references: [id], onDelete: Cascade)
+  boardId   String?      // null = common for all boards
+  board     BoardMaster? @relation(fields: [boardId], references: [id], onDelete: SetNull)
+  icon      String?      // e.g. "/assets/Science-icon.png"
+  isActive  Boolean      @default(true)
+  sortOrder Int          @default(0)
+  createdAt DateTime     @default(now())
+
+  books         BookMaster[]
+  subjectTracks SubjectTrack[]
+
+  @@map("subject_master")
+}
+
+// ─── Book Master Data ──────────────────────────────────────────────────────────
+
+model BookMaster {
+  id         String        @id @default(cuid())
+  name       String
+  subjectId  String
+  subject    SubjectMaster @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  sortOrder  Int           @default(0)
+  totalParts Int?          // null = no tabs; 2+ = show Part I, Part II... tabs
+  isActive   Boolean       @default(true)
+  createdAt  DateTime      @default(now())
+
+  chapters ChapterMaster[]
+
+  @@map("book_master")
+}
+
+// ─── Chapter Master Data ───────────────────────────────────────────────────────
+
+model ChapterMaster {
+  id        String     @id @default(cuid())
+  name      String
+  bookId    String
+  book      BookMaster @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  sortOrder Int        @default(0)
+  part      Int?       // null = no part; 1/2/3... = which tab this chapter belongs to
+  isActive  Boolean    @default(true)
+  createdAt DateTime   @default(now())
+
+  chapterTracks ChapterTrack[]
+  topics        TopicMaster[]
+
+  @@map("chapter_master")
+}
+
+// ─── Topic Master Data ─────────────────────────────────────────────────────────
+
+model TopicMaster {
+  id          String          @id @default(cuid())
+  chapterId   String
+  chapter     ChapterMaster   @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  pointNumber String          // e.g. "7.1", "7.2"
+  title       String
+  status      String          @default("active")
+  sortOrder   Int             @default(0)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  subtopics   SubtopicMaster[]
+
+  @@map("topic_master")
+}
+
+// ─── Subtopic Master Data ──────────────────────────────────────────────────────
+
+model SubtopicMaster {
+  id          String      @id @default(cuid())
+  topicId     String
+  topic       TopicMaster @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  pointNumber String      // e.g. "7.1.1", "7.1.2"
+  title       String
+  status      String      @default("active")
+  sortOrder   Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("subtopic_master")
+}
+
+// ─── Subject Track ─────────────────────────────────────────────────────────────
+
+model SubjectTrack {
+  id        String        @id @default(cuid())
+  userId    String
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subjectId String
+  subject   SubjectMaster @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  startedAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@unique([userId, subjectId])
+  @@map("subject_track")
+}
+
+// ─── Chapter Track ─────────────────────────────────────────────────────────────
+
+model ChapterTrack {
+  id          String        @id @default(cuid())
+  userId      String
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapterId   String
+  chapter     ChapterMaster @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  progress    Int           @default(0)    // 0–100
+  status      TrackStatus   @default(NOT_STARTED)
+  startedAt   DateTime?
+  completedAt DateTime?
+  updatedAt   DateTime      @updatedAt
+
+  @@unique([userId, chapterId])
+  @@map("chapter_track")
+}
+
+enum TrackStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum Plan {
+  FREE
+  PRO
+}
+
+// ─── Conversations ────────────────────────────────────────────────────────────
+
+model Conversation {
+  id        String    @id @default(cuid())
+  title     String    @default("New Chat")
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  messages  Message[]
+
+  @@map("conversations")
+}
+
+// ─── Messages ─────────────────────────────────────────────────────────────────
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           MessageRole
+  content        String       @db.Text
+  diagram        String?      @db.Text  // Mermaid code
+  resources      Json?                  // Resource[] JSON array
+  imageUrl       String?
+  createdAt      DateTime     @default(now())
+
+  @@map("messages")
+}
+
+enum MessageRole {
+  user
+  assistant
+}
+
+// ─── Documents (PDF upload) ────────────────────────────────────────────────────
+
+model Document {
+  id          String         @id @default(cuid())
+  userId      String
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  filename    String
+  storageUrl  String
+  status      DocumentStatus @default(PROCESSING)
+  createdAt   DateTime       @default(now())
+
+  chunks      DocumentChunk[]
+
+  @@map("documents")
+}
+
+enum DocumentStatus {
+  PROCESSING
+  READY
+  ERROR
+}
+
+// ─── Document Chunks (pgvector RAG) ───────────────────────────────────────────
+// NOTE: The embedding column uses pgvector — run the migration below manually
+// in Supabase SQL editor AFTER running prisma migrate dev:
+//   ALTER TABLE document_chunks ADD COLUMN embedding vector(1536);
+//   CREATE INDEX ON document_chunks USING ivfflat (embedding vector_cosine_ops);
+
+model DocumentChunk {
+  id         String   @id @default(cuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  content    String   @db.Text
+  chunkIndex Int
+  createdAt  DateTime @default(now())
+  // embedding vector(1536) — added manually via SQL (pgvector not supported in Prisma schema)
+
+  @@map("document_chunks")
+}
+
+// ─── Jobs (async tasks) ───────────────────────────────────────────────────────
+
+model Job {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      JobType
+  status    JobStatus @default(PENDING)
+  prompt    String?
+  resultUrl String?
+  error     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("jobs")
+}
+
+enum JobType {
+  IMAGE_GENERATION
+  PDF_PROCESSING
+}
+
+enum JobStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}

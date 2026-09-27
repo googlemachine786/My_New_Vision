@@ -1,0 +1,283 @@
+{
+  "test_date": "2026-04-08T11:47:38.584972",
+  "tests": [
+    {
+      "test": "vector_search_health",
+      "category": "go_services",
+      "status": "PASS",
+      "details": "DB: connected, conns: 5/25",
+      "latency_ms": 27.5,
+      "timestamp": "2026-04-08T11:47:38.614643"
+    },
+    {
+      "test": "vector_search_version",
+      "category": "go_services",
+      "status": "PASS",
+      "details": "vdev, commit: unknown",
+      "latency_ms": 27.35,
+      "timestamp": "2026-04-08T11:47:38.642908"
+    },
+    {
+      "test": "vector_search_metrics",
+      "category": "go_services",
+      "status": "PASS",
+      "details": "192 metric lines, has HELP/TYPE: True",
+      "latency_ms": 16.26,
+      "timestamp": "2026-04-08T11:47:38.659995"
+    },
+    {
+      "test": "dense_search",
+      "category": "vector_search_api",
+      "status": "WARN",
+      "details": "{'code': 'search_error', 'message': 'Dense search operation failed'}",
+      "latency_ms": 75.68,
+      "timestamp": "2026-04-08T11:47:40.343440"
+    },
+    {
+      "test": "sparse_search",
+      "category": "vector_search_api",
+      "status": "WARN",
+      "details": "{'code': 'search_error', 'message': 'Sparse search operation failed'}",
+      "latency_ms": 25.4,
+      "timestamp": "2026-04-08T11:47:40.369269"
+    },
+    {
+      "test": "hybrid_search",
+      "category": "vector_search_api",
+      "status": "PASS",
+      "details": "0 results, RRF fusion: False",
+      "latency_ms": 62.8,
+      "timestamp": "2026-04-08T11:47:40.432389"
+    },
+    {
+      "test": "table_structure",
+      "category": "postgresql",
+      "status": "PASS",
+      "details": "6 tables: ai_feedback_loop, cbse_taxonomy, child_chunks, document_versions, ingestion_dlq, parent_chunks",
+      "latency_ms": 7.94,
+      "timestamp": "2026-04-08T11:47:40.815521"
+    },
+    {
+      "test": "vector_indexes",
+      "category": "postgresql",
+      "status": "PASS",
+      "details": "5 vector indexes: pg_replication_origin_roname_index, pg_replication_origin_roiident_index, idx_parent_keywords_gin, idx_child_embedding_hnsw, idx_feedback_context_gin",
+      "latency_ms": 10.65,
+      "timestamp": "2026-04-08T11:47:40.826435"
+    },
+    {
+      "test": "taxonomy_data",
+      "category": "postgresql",
+      "status": "PASS",
+      "details": "10 sample chapters verified",
+      "latency_ms": 4.11,
+      "timestamp": "2026-04-08T11:47:40.830800"
+    },
+    {
+      "test": "vector_similarity",
+      "category": "postgresql",
+      "status": "PASS",
+      "details": "3 results, ordered: True, distances: ['0.0000', '0.0795', '0.0795']",
+      "latency_ms": 53.2,
+      "timestamp": "2026-04-08T11:47:40.884259"
+    },
+    {
+      "test": "foreign_key_integrity",
+      "category": "postgresql",
+      "status": "PASS",
+      "details": "0 orphaned child_chunks",
+      "latency_ms": 3.4,
+      "timestamp": "2026-04-08T11:47:40.895107"
+    },
+    {
+      "test": "content_distribution",
+      "category": "postgresql",
+      "status": "PASS",
+      "details": "no content yet",
+      "latency_ms": 4.25,
+      "timestamp": "2026-04-08T11:47:40.899586"
+    },
+    {
+      "test": "llm_What is photosynthes",
+      "category": "gcp_api",
+      "status": "WARN",
+      "details": "16 chars",
+      "latency_ms": 2780.08,
+      "timestamp": "2026-04-08T11:47:43.687089"
+    },
+    {
+      "test": "llm_Explain Newton's law",
+      "category": "gcp_api",
+      "status": "WARN",
+      "details": "13 chars",
+      "latency_ms": 2395.2,
+      "timestamp": "2026-04-08T11:47:46.082714"
+    },
+    {
+      "test": "llm_What are the parts o",
+      "category": "gcp_api",
+      "status": "WARN",
+      "details": "5 chars",
+      "latency_ms": 2772.22,
+      "timestamp": "2026-04-08T11:47:48.855354"
+    },
+    {
+      "test": "embed_What is force and pr",
+      "category": "gcp_api",
+      "status": "PASS",
+      "details": "3072d, 3072 non-zero",
+      "latency_ms": 1670.96,
+      "timestamp": "2026-04-08T11:47:50.528127"
+    },
+    {
+      "test": "embed_Explain photosynthes",
+      "category": "gcp_api",
+      "status": "PASS",
+      "details": "3072d, 3072 non-zero",
+      "latency_ms": 1734.74,
+      "timestamp": "2026-04-08T11:47:52.264597"
+    },
+    {
+      "test": "embed_Newton's first law o",
+      "category": "gcp_api",
+      "status": "PASS",
+      "details": "3072d, 3072 non-zero",
+      "latency_ms": 1593.67,
+      "timestamp": "2026-04-08T11:47:53.859972"
+    },
+    {
+      "test": "embedding_similarity",
+      "category": "gcp_api",
+      "status": "PASS",
+      "details": "similarity: 0.6019 (related physics concepts)",
+      "latency_ms": 3119.34,
+      "timestamp": "2026-04-08T11:47:56.979646"
+    },
+    {
+      "test": "basic_ops",
+      "category": "redis",
+      "status": "PASS",
+      "details": "SET/GET/DEL verified",
+      "latency_ms": 11.94,
+      "timestamp": "2026-04-08T11:47:57.170752"
+    },
+    {
+      "test": "ttl_caching",
+      "category": "redis",
+      "status": "PASS",
+      "details": "TTL: 3600s, data integrity: True",
+      "latency_ms": 49.13,
+      "timestamp": "2026-04-08T11:47:57.220222"
+    },
+    {
+      "test": "search_cache",
+      "category": "redis",
+      "status": "PASS",
+      "details": "2 results cached",
+      "latency_ms": 3.72,
+      "timestamp": "2026-04-08T11:47:57.224185"
+    },
+    {
+      "test": "memory_usage",
+      "category": "redis",
+      "status": "PASS",
+      "details": "1.20M",
+      "latency_ms": 1.28,
+      "timestamp": "2026-04-08T11:47:57.225620"
+    },
+    {
+      "test": "sequential_latency",
+      "category": "load_performance",
+      "status": "PASS",
+      "details": "avg: 27.2ms, p50: 30.9ms, p95: 32.1ms, p99: 32.1ms",
+      "latency_ms": 0,
+      "timestamp": "2026-04-08T11:47:57.500060"
+    },
+    {
+      "test": "concurrent_requests",
+      "category": "load_performance",
+      "status": "PASS",
+      "details": "20/20 succeeded, 0 failed, total: 181ms",
+      "latency_ms": 181.02,
+      "timestamp": "2026-04-08T11:47:57.681334"
+    },
+    {
+      "test": "gemini_latency",
+      "category": "load_performance",
+      "status": "PASS",
+      "details": "2488ms (HTTP 200)",
+      "latency_ms": 2488.13,
+      "timestamp": "2026-04-08T11:48:00.169683"
+    },
+    {
+      "test": "vector_search_tests",
+      "category": "go_tests",
+      "status": "SKIP",
+      "details": "[WinError 2] The system cannot find the file specified",
+      "latency_ms": 17.54,
+      "timestamp": "2026-04-08T11:48:00.190633"
+    },
+    {
+      "test": "query_understanding_tests",
+      "category": "go_tests",
+      "status": "SKIP",
+      "details": "[WinError 2] The system cannot find the file specified",
+      "latency_ms": 9.89,
+      "timestamp": "2026-04-08T11:48:00.200817"
+    },
+    {
+      "test": "api_gateway_tests",
+      "category": "go_tests",
+      "status": "SKIP",
+      "details": "[WinError 2] The system cannot find the file specified",
+      "latency_ms": 15.2,
+      "timestamp": "2026-04-08T11:48:00.216301"
+    }
+  ],
+  "summary": {
+    "total": 29,
+    "passed": 21,
+    "failed": 0,
+    "warnings": 5,
+    "skipped": 3,
+    "elapsed_seconds": 21.63,
+    "pass_rate": "72.4%",
+    "categories": {
+      "gcp_api": {
+        "total": 7,
+        "passed": 4,
+        "rate": "57.1%"
+      },
+      "postgresql": {
+        "total": 6,
+        "passed": 6,
+        "rate": "100.0%"
+      },
+      "go_tests": {
+        "total": 3,
+        "passed": 0,
+        "rate": "0.0%"
+      },
+      "load_performance": {
+        "total": 3,
+        "passed": 3,
+        "rate": "100.0%"
+      },
+      "vector_search_api": {
+        "total": 3,
+        "passed": 1,
+        "rate": "33.3%"
+      },
+      "go_services": {
+        "total": 3,
+        "passed": 3,
+        "rate": "100.0%"
+      },
+      "redis": {
+        "total": 4,
+        "passed": 4,
+        "rate": "100.0%"
+      }
+    }
+  }
+}

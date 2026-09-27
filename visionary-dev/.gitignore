@@ -1,0 +1,10 @@
+# Local-only dev environment — not committed
+local/
+supabase/
+.env*
+!.env.example
+*.log
+.DS_Store
+CLAUDE.md
+ISSUES.md
+STAGING.md
