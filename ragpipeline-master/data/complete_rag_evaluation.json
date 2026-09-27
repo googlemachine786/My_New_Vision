@@ -1,0 +1,42 @@
+{
+  "chunking": {
+    "chunk_coherence_score": 0.0,
+    "semantic_completeness": 0.0,
+    "chunk_size_stats": {},
+    "context_window_fit_rate": 0.0,
+    "information_density": 0.0,
+    "boundary_quality": 0.0,
+    "chunk_overlap_leakage": 0.0,
+    "redundancy_score": 0.0
+  },
+  "retrieval": {
+    "ndcg_at_k": 0.75,
+    "recall_at_k": 0.68,
+    "mrr": 0.62,
+    "context_recall": 0.71,
+    "context_precision": 0.65,
+    "retrieval_latency_p95": 0.0
+  },
+  "reranking": {
+    "ndcg_delta": 0.08,
+    "precision_at_1": 0.7,
+    "reranker_latency": 0.0
+  },
+  "generation": {
+    "faithfulness": 0.0,
+    "factscore": 0.0,
+    "bertscore_f1": 0.0,
+    "answer_relevance": 0.0,
+    "answer_correctness": 0.0
+  },
+  "system": {
+    "rag_triad_score": 0.0,
+    "noise_robustness": 0.0,
+    "cost_per_query": 0.0,
+    "latency_p50": 0.0,
+    "latency_p95": 0.0,
+    "latency_p99": 0.0,
+    "throughput_qps": 0
+  },
+  "overall_score": 0.39849999999999997
+}

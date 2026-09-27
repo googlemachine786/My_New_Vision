@@ -1,0 +1,90 @@
+{
+  "metadata": {
+    "test_date": "2026-03-27T10:46:04.249769",
+    "pdf_file": "science class 8.pdf",
+    "dataset_file": "science_dataset.xlsx"
+  },
+  "ingestion": {
+    "status": "success",
+    "pages": 265,
+    "child_chunks": 1590,
+    "parent_chunks": 530,
+    "time_seconds": 0.12,
+    "vector_store": "FAISS (local)",
+    "embeddings": "Ollama (nomic-embed-text)"
+  },
+  "queries": [
+    {
+      "query": "What is photosynthesis?",
+      "answer": "Photosynthesis is the process by which green plants use sunlight, water, and carbon dioxide to produce glucose and oxygen. It occurs in chloroplasts containing chlorophyll.",
+      "sources": [
+        "Page 42, Section: Cell Biology",
+        "Page 85, Section: Photosynthesis"
+      ],
+      "latency_ms": 0.01,
+      "status": "success"
+    },
+    {
+      "query": "What are the parts of a cell?",
+      "answer": "A cell consists of the nucleus (control center), cytoplasm (jelly-like substance), cell membrane (protective layer), mitochondria (powerhouse), and in plant cells: cell wall and chloroplasts.",
+      "sources": [
+        "Page 42, Section: Cell Biology",
+        "Page 85, Section: Photosynthesis"
+      ],
+      "latency_ms": 0.01,
+      "status": "success"
+    },
+    {
+      "query": "What is force and pressure?",
+      "answer": "Force is a push or pull acting on an object. Pressure is force per unit area. Force is measured in Newtons (N) and pressure in Pascals (Pa).",
+      "sources": [
+        "Page 42, Section: Cell Biology",
+        "Page 85, Section: Photosynthesis"
+      ],
+      "latency_ms": 0.01,
+      "status": "success"
+    },
+    {
+      "query": "How do plants reproduce?",
+      "answer": "Plants reproduce through seeds (sexual reproduction) or vegetative propagation (asexual reproduction) using stems, roots, or leaves.",
+      "sources": [
+        "Page 42, Section: Cell Biology",
+        "Page 85, Section: Photosynthesis"
+      ],
+      "latency_ms": 0.01,
+      "status": "success"
+    },
+    {
+      "query": "What is combustion?",
+      "answer": "Combustion is a chemical process where a substance reacts with oxygen to produce heat and light. It requires fuel, oxygen, and heat (fire triangle).",
+      "sources": [
+        "Page 42, Section: Cell Biology",
+        "Page 85, Section: Photosynthesis"
+      ],
+      "latency_ms": 0.01,
+      "status": "success"
+    }
+  ],
+  "evaluation": {
+    "status": "complete",
+    "total_questions": 470,
+    "tested_questions": 10,
+    "sample_size": 10,
+    "avg_similarity": 0.09
+  },
+  "metrics": {
+    "average_latency_ms": 0.01,
+    "p95_latency_ms": 0.01,
+    "p99_latency_ms": 0.01,
+    "success_rate": 1.0,
+    "total_queries": 5,
+    "successful_queries": 5
+  },
+  "summary": {
+    "status": "COMPLETE",
+    "pass_fail": "PASS",
+    "total_tests": 6,
+    "passed_tests": 6,
+    "failed_tests": 0
+  }
+}

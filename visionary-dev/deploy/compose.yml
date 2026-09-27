@@ -1,0 +1,96 @@
+# LOCAL DEV ONLY. Production DB is Supabase — do not deploy this file.
+#
+# Local-dev compose for Visionary.
+#
+# Brings up the infrastructure layer (Postgres + Redis + Mailpit) and runs
+# Prisma migrations + conditional seed via a one-shot init container.
+#
+# Backend and frontend run on the HOST (npm run start:dev / npm run dev) for
+# hot-reload speed; this compose only handles the stateful services.
+#
+# Usage from repo root:
+#   docker compose -f deploy/compose.yml up -d
+#   docker compose -f deploy/compose.yml down
+#   docker compose -f deploy/compose.yml logs -f migrate
+#
+# To force a re-seed (wipes user progress, use with care):
+#   SEED_ON_BOOT=force docker compose -f deploy/compose.yml up -d --force-recreate migrate
+#
+# Ports match what the rest of the dev environment expects, so the host
+# backend's .env (DATABASE_URL=...localhost:54322, etc.) keeps working.
+
+name: visionary-dev
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: visionary-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+    ports:
+      - "127.0.0.1:54322:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+
+  redis:
+    image: redis:8-alpine
+    container_name: visionary-redis
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis-data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: visionary-mailpit
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:1025:1025"   # SMTP — backend sends OTPs here
+      - "127.0.0.1:8025:8025"   # Web UI — http://localhost:8025
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_DATABASE: /data/mailpit.db
+    volumes:
+      - mailpit-data:/data
+
+  migrate:
+    # Pulls the pre-built image from GHCR (built by .github/workflows/build-migrate-image.yml on merges to main).
+    # Falls back to a local build if the image isn't pulled — `docker compose pull` first to use the registry version.
+    image: ghcr.io/visionaryorg/visionary-backend-migrate:latest
+    build:
+      context: ../backend
+      dockerfile: ../deploy/Dockerfile.backend
+      target: migrate
+    container_name: visionary-migrate
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # Inside compose network, postgres is reachable via its service name.
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-postgres}
+      DIRECT_URL:   postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-postgres}
+      # auto = seed only if subject_master is empty.
+      # force = always seed (destructive: wipes user progress via cascade).
+      SEED_ON_BOOT: ${SEED_ON_BOOT:-auto}
+    restart: "no"
+
+volumes:
+  postgres-data:
+  redis-data:
+  mailpit-data:

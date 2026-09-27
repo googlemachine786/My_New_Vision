@@ -1,0 +1,78 @@
+{
+  "metadata": {
+    "test_date": "2026-03-27T12:02:17.691369",
+    "total_tests": 9,
+    "passed_tests": 9
+  },
+  "tests": [
+    {
+      "name": "Embedding",
+      "status": "PASS",
+      "latency_ms": 5184.41,
+      "dimensions": 768,
+      "model": "nomic-embed-text"
+    },
+    {
+      "name": "LLM Generation",
+      "status": "PASS",
+      "latency_ms": 15264.67,
+      "model": "llama3.2:3b",
+      "answer_preview": "Force is a fundamental concept in physics that ref"
+    },
+    {
+      "name": "PDF Ingestion",
+      "status": "PASS",
+      "pages": 265,
+      "latency_ms": 31.79
+    },
+    {
+      "name": "Golden Dataset",
+      "status": "PASS",
+      "rows": 470,
+      "columns": [
+        "x_data",
+        "y_data"
+      ]
+    },
+    {
+      "name": "RAG Metrics",
+      "status": "PASS",
+      "overall_score": 0.39849999999999997,
+      "metrics_count": 29
+    },
+    {
+      "name": "Improvement Loop",
+      "status": "PASS",
+      "best_config": "llama3.2-fast",
+      "best_score": 0.562
+    }
+  ],
+  "ollama_models": [
+    "nomic-embed-text:latest",
+    "llama3.2:3b",
+    "glm-5:cloud",
+    "llama3.2:latest"
+  ],
+  "model_tests": [
+    {
+      "model": "llama3.2:3b",
+      "status": "PASS",
+      "latency_ms": 2720.87
+    },
+    {
+      "model": "glm-5:cloud",
+      "status": "PASS",
+      "latency_ms": 5080.59
+    },
+    {
+      "model": "llama3.2:latest",
+      "status": "PASS",
+      "latency_ms": 2644.12
+    }
+  ],
+  "summary": {
+    "overall_status": "PASS",
+    "pass_rate": 1.0,
+    "timestamp": "2026-03-27T12:02:51.357767"
+  }
+}

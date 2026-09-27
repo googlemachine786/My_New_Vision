@@ -1,0 +1,133 @@
+linters:
+  enable:
+    - errcheck      # Detect unchecked errors
+    - goimports     # Format imports (groups + sorts)
+    - revive        # General-purpose linter (replacement for golint)
+    - govet         # Reports suspicious constructs
+    - staticcheck   # Advanced static analysis
+    - gosec         # Security issues
+    - ineffassign   # Detect ineffective assignments
+    - misspell      # Common spelling errors
+    - unconvert     # Unnecessary type conversions
+    - unused        # Unused constants/variables/functions/types
+    - gosimple      # Simplify code
+    - prealloc      # Suggest pre-allocating slices
+    - bodyclose     # Check unclosed HTTP response bodies
+    - noctx         # Find HTTP requests without context
+    - gocritic      # Diagnostic and performance checks
+
+run:
+  timeout: 5m
+  # Include test files
+  tests: true
+
+issues:
+  # Show all issues
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  # Don't hide issues from specific linters
+  exclude-use-default: false
+
+linters-settings:
+  revive:
+    rules:
+      - name: blank-imports
+      - name: context-as-argument
+      - name: context-keys-type
+      - name: dot-imports
+      - name: error-return
+      - name: error-strings
+      - name: error-naming
+      - name: exported
+      - name: if-return
+      - name: increment-decrement
+      - name: var-naming
+      - name: var-declaration
+      - name: package-comments
+      - name: range
+      - name: receiver-naming
+      - name: time-naming
+      - name: unexported-return
+      - name: indent-error-flow
+      - name: errorf
+      - name: empty-block
+      - name: superfluous-else
+      - name: unused-parameter
+      - name: unreachable-code
+      - name: redefines-builtin-id
+
+  govet:
+    enable-all: true
+    disable:
+      - fieldalignment  # Too noisy for existing code
+
+  gosec:
+    excludes:
+      - G104  # Duplicate of errcheck
+
+  gocritic:
+    enabled-checks:
+      - appendAssign
+      - argOrder
+      - badCall
+      - badCond
+      - badLock
+      - badRegexp
+      - boolExprSimplify
+      - builtinShadow
+      - builtinShadowDecl
+      - caseOrder
+      - codegenComment
+      - commentedOutCode
+      - deferInLoop
+      - deferUnlambda
+      - deprecatedComment
+      - docStub
+      - dupArg
+      - dupBranchBody
+      - dupCase
+      - dupSubExpr
+      - emptyDecl
+      - emptyFallthrough
+      - equalFold
+      - exitAfterDefer
+      - flagDeref
+      - flagName
+      - hugeParam
+      - ifElseChain
+      - indexAlloc
+      - initClause
+      - mapKey
+      - nestingReduce
+      - newDeref
+      - nilValReturn
+      - octalLiteral
+      - offBy1
+      - paramTypeCombine
+      - rangeExprCopy
+      - rangeValCopy
+      - regexpMust
+      - regexpPattern
+      - regexpSimplify
+      - ruleguard
+      - sloppyLen
+      - sloppyReassign
+      - sortSlice
+      - sprintfQuotedString
+      - stringXbytes
+      - switchTrue
+      - truncateCmp
+      - typeAssertChain
+      - typeSwitchVar
+      - typeUnparen
+      - uncheckedInlineErr
+      - underef
+      - unlabelStmt
+      - unlambda
+      - unnamedResult
+      - unnecessaryBlock
+      - unnecessaryDefer
+      - valSwap
+      - weakCond
+      - wrapperFunc
+      - yodaStyleExpr
